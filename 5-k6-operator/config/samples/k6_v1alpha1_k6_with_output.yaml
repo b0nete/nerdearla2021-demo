@@ -1,0 +1,14 @@
+apiVersion: k6.io/v1alpha1
+kind: K6
+metadata:
+  name: k6-sample
+  namespace: k6-operator-system
+spec:
+  parallelism: 1
+  script:
+    configMap:
+      name: k6-test
+      file: test.js
+  arguments: --out influxdb=http://admin:Sjkl21hr6ds@influxdb.influxdb:8086/primary
+  scuttle:
+    enabled: "false"

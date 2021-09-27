@@ -1,0 +1,19 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: grafana-http-healtcheck
+  namespace: kube-prometheus-stack
+spec:
+  schedule: "*/5 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: cron-batch-job
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - name: grafana-healtcheck
+            image: curlimages/curl:7.79.1
+            args: ["http://api_key:eyJrIjoiMUo4Y3FRR0xScUt6TU9nSkNqcVI1dFcxNk8yRWQ1eXoiLCJuIjoiazYiLCJpZCI6MX0=@kube-prometheus-stack-grafana.kube-prometheus-stack/api/dashboards/uid/r1O-AoN7z/"]

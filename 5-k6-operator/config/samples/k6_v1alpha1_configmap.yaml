@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: k6-test
+  namespace: k6-operator-system
+data:
+  test.js: |
+    import http from 'k6/http';
+    import { Rate } from 'k6/metrics';
+    import { check, sleep } from 'k6';
+
+    const failRate = new Rate('failed_requests');
+
+    export let options = {
+      stages: [
+        { target: 400, duration: '1s' },
+        { target: 0, duration: '80s' },
+      ],
+      thresholds: {
+        failed_requests: ['rate<=0'],
+        http_req_duration: ['p(95)<800'],
+      },
+    };
+
+    export default function () {
+      const result = http.get('http://api_key:eyJrIjoiMUo4Y3FRR0xScUt6TU9nSkNqcVI1dFcxNk8yRWQ1eXoiLCJuIjoiazYiLCJpZCI6MX0=@kube-prometheus-stack-grafana.kube-prometheus-stack/api/dashboards/uid/r1O-AoN7z/');
+      check(result, {
+        'http response status code is 200': result.status === 200,
+      });
+      failRate.add(result.status !== 200);
+      sleep(1);
+    }
