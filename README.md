@@ -74,4 +74,4 @@ You can read more about sloth here: https://itnext.io/slos-should-be-easy-say-hi
 
 - `kubectl apply -f ./5-k6-operator/config/samples/k6_v1alpha1_configmap.yaml` (Create configmap with desired tests and apply).
 - `kubectl apply -f ./5-k6-operator/config/samples/k6_v1alpha1_k6_with_output.yaml` (Execute tests with k6-operator using previous applied file).
-- 
+- `kubectl delete k6 k6-sample -n k6-operator-system` (Delete tests when these ends).
