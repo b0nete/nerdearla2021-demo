@@ -1,4 +1,6 @@
-# nerdearla2021
+# Nerdear.la 2021 - SRE Key Metrics (K6 load testing & SLO with Sloth)
+
+[SLIDES](https://docs.google.com/presentation/d/1amUe719YGX4BUO9hi7ikyeIA0DvEmdvGLKiVOmQ6Gyo/)
 
 ## 1- Deploy minikube cluster.
 **Multiple nodes.**  (Each one 2cores and 2048mb)
@@ -72,3 +74,4 @@ You can read more about sloth here: https://itnext.io/slos-should-be-easy-say-hi
 
 - `kubectl apply -f ./5-k6-operator/config/samples/k6_v1alpha1_configmap.yaml` (Create configmap with desired tests and apply).
 - `kubectl apply -f ./5-k6-operator/config/samples/k6_v1alpha1_k6_with_output.yaml` (Execute tests with k6-operator using previous applied file).
+- 
